@@ -2,15 +2,8 @@ import './App.css';
 import React, { useState } from 'react';
 import {MdDelete} from 'react-icons/md';
 const App = () => {
-
-  const initialTodos = [
-    {id: 1, title: "Estudar react", checked: false},
-    {id: 2, title: "Estudar ingles", checked: true},
-    {id: 3, title: "Estudar js", checked: false},
-    {id: 4, title: "Estudar guitarra", checked: true}
-  ]
-
-  const [todos, ] = useState(initialTodos);
+  
+  const [todos, setTodos] = useState([]);
   const [value, setValue] = useState("");
   const ESCAPE_KEY = 27;
   const ENTER_KEY = 13;
@@ -21,6 +14,7 @@ const App = () => {
 
   const Submit = () =>{
     console.log("Submit", value);
+    setTodos([...todos, {id: new Date().getTime, title: value, checked: false}]);
     erase();
   }
 
