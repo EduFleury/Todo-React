@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState } from 'react';
 import {MdDelete} from 'react-icons/md';
 const App = () => {
-  
+
   const [todos, setTodos] = useState([]);
   const [value, setValue] = useState("");
   const ESCAPE_KEY = 27;
@@ -14,7 +14,7 @@ const App = () => {
 
   const Submit = () =>{
     console.log("Submit", value);
-    setTodos([...todos, {id: new Date().getTime, title: value, checked: false}]);
+    setTodos([...todos, {id: new Date().getTime(), title: value, checked: false}]);
     erase();
   }
 
@@ -29,6 +29,10 @@ const App = () => {
       erase();
     }
   }
+
+  const onToggle = (todo) =>{
+  setTodos(todos.map((obj)=>(obj.id === todo.id?{...obj, checked: !todo.checked}:obj)));
+};
 
   return (
     <section id="app" className="container">
@@ -49,10 +53,20 @@ const App = () => {
           {
             todos.map((todo) => (
               <li key={todo.id.toString()}>
-                <span className='todo'>{todo.title}</span>
-                <button className='remove' type="button">
+                  <span 
+                    className={['todo', todo.checked? "checked" : ""].join(" ")}
+                    onClick={() => onToggle(todo)}
+                    onKeyDown={() => onToggle(todo)}
+                    role="button"
+                    tabIndex={0}>
+                    {todo.title}
+                  </span>
+
+                  <button 
+                  className='remove' 
+                  type="button">
                   <MdDelete size={28}/>
-                </button>
+                  </button>
                 </li>
             ))
           }
