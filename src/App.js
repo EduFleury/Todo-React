@@ -30,8 +30,13 @@ const App = () => {
     }
   }
 
+  const onRemove = (todo)=>{
+    console.log("remove", todo);
+    setTodos(todos.filter((obj) => obj.id !== todo.id));
+  }
+
   const onToggle = (todo) =>{
-  setTodos(todos.map((obj)=>(obj.id === todo.id?{...obj, checked: !todo.checked}:obj)));
+    setTodos(todos.map((obj)=>(obj.id === todo.id?{...obj, checked: !todo.checked}:obj)));
 };
 
   return (
@@ -64,7 +69,8 @@ const App = () => {
 
                   <button 
                   className='remove' 
-                  type="button">
+                  type="button"
+                  onClick={() => onRemove(todo)}>
                   <MdDelete size={28}/>
                   </button>
                 </li>
